@@ -1,3 +1,22 @@
+const videoIntro = document.querySelector('.video-intro');
+
+// Escuchar el evento de scroll
+window.addEventListener('scroll', () => {
+  // Calcular cuánto se ha desplazado la página
+  const scrollPosition = window.scrollY;
+
+  // Controlar la posición del video
+  if (scrollPosition > 0) {
+    videoIntro.style.transform = `translateY(-${scrollPosition}px)`; // Desplaza el video hacia arriba
+  } else {
+    videoIntro.style.transform = 'translateY(0)'; // Restaurar la posición si no hay scroll
+  }
+});
+
+
+
+
+
 document.querySelector('.rebirthIsland').addEventListener('click', apiRequest)
 document.querySelector('.caldera').addEventListener('click', apiRequest2)
 document.querySelector('.fortunesKeep').addEventListener('click', apiRequest3)
@@ -77,3 +96,4 @@ async function apiRequest4(){
         document.querySelector('h2').innerText = `404! Uh oh, server is not responding. \n${error}!`
     }
 }
+
