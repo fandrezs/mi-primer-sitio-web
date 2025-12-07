@@ -130,60 +130,111 @@ a {
 }
 
 body {
-  font-family: 'Georgia', serif;
-  font-style: italic;
+  background: #000;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#carousel {
+  position: relative;
+  width: 70%; /* Reducido el tamaño del carrusel */
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px; /* Borde redondeado */
+  background-color: #222; /* Fondo más oscuro para resaltar el contenido */
+}
+
+#slides {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 350px; /* Ajuste de altura */
+}
+
+#slides ul {
+  list-style: none;
+  width: 100%;
+  height: 350px; /* Ajuste de altura */
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
+  position: relative;
 }
 
-small {
-  font-family: 'Montserrat', 'Helvetica', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #FFFFFF
+#slides li {
+  width: 100%;
+  height: 350px;
+  float: left;
+  text-align: center;
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+  color: #DDCEBB;
 }
 
-/* Styles you want to copy across begin here */
-
-.testimonials {
-  background-color: #000000;
-  overflow: hidden;
+/* Styling for prev and next buttons */
+.btn-bar {
+  max-width: 346px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  top: 40px;
   width: 100%;
 }
 
-.testimonials ul {
-  list-style: none;
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding: 0;
+#buttons {
+  padding: 0 0 5px 0;
+  float: right;
 }
 
-.testimonials ul li {
-  display: inline-block;
-  padding: 1rem;
-  position: relative;
+#buttons a {
   text-align: center;
-  width: 100vw;
+  display: block;
+  font-size: 40px; /* Ajuste tamaño */
+  float: left;
+  outline: 0;
+  margin: 0 30px;
+  color: #DDCEBB;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  width: 35px;
 }
 
-.testimonials ul li p {
-  max-width: 600px;
-  margin: 1rem auto;
-  width: 50%;
+a#prev:hover, a#next:hover {
+  color: #FFF;
+  text-shadow: .5px 0px #DDCEBB;
 }
 
-.testimonials-control {
-  background-color: #000000;
-  display: flex;
-  justify-content: center;
+.quote-phrase, .quote-author {
+  font-family: sans-serif;
+  font-weight: 300;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 10px 20px;
+  font-family: 'Open Sans', sans-serif;
 }
 
-.testimonials-control i {
-  cursor: pointer;
-  padding: 1.3rem;
+.quote-phrase {
+  height: 250px; /* Ajuste altura */
+  font-size: 20px; /* Ajuste tamaño de texto */
+  color: #DDCEBB;
+  font-style: italic;
+  text-shadow: .5px 0px #DDCEBB;
+}
+
+.quote-marks {
+  font-size: 35px;
+  padding: 0 3px 3px;
+  position: inherit;
+}
+
+.quote-author {
+  font-style: normal;
+  font-size: 18px; /* Ajuste tamaño */
+  color: #DDCEBB;
+  font-weight: 400;
+  height: 30px;
+}
+
+.quoteContainer, .authorContainer {
+  display: table;
+  width: 100%;
 }
