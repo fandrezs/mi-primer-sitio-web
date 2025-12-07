@@ -97,66 +97,69 @@ async function apiRequest4(){
     }
 }
 
-var tLeftButton = $("#testimonials-l");
-var tRightButton = $("#testimonials-r");
-
-// Get number of <li> elements in carousel
-
-var tItemCount = document.getElementById('testimonials-ul').querySelectorAll('li').length;
-
-// Set length based on that
-
-var tWidth = tItemCount * 100 + "vw";
-$(".testimonials ul").css("width", tWidth);
-
-// Button functionality
-
-var tPosition = 0;
-console.log(tPosition);
-
-tRightButton.click(function() {
-  if (tPosition < (tItemCount - 1)) {
-    tPosition++;
-    var m = "-" + (100 * tPosition) + "vw";
-    $(".testimonials ul").animate({
-      "left": m
-    }, 500);
-    greyButton();
-  }
+$(document).ready(function () {
+    // velocidad de rotación y temporizador
+    var speed = 5000;
+    
+    var run = setInterval(rotate, speed);
+    var slides = $('.slide');
+    var container = $('#slides ul');
+    var elm = container.find(':first-child').prop("tagName");
+    var item_width = container.width();
+    var previous = 'prev'; // id del botón de "anterior"
+    var next = 'next'; // id del botón de "siguiente"
+    slides.width(item_width); // ajusta el ancho de los slides
+    container.parent().width(item_width);
+    container.width(slides.length * item_width); // ajusta el contenedor de los slides
+    container.find(elm + ':first').before(container.find(elm + ':last'));
+    resetSlides();
+    
+    // Si el usuario hace clic en el botón de "prev"
+    $('#buttons a').click(function (e) {
+        // desliza el elemento
+        if (container.is(':animated')) {
+            return false;
+        }
+        if (e.target.id == previous) {
+            container.stop().animate({
+                'left': 0
+            }, 1500, function () {
+                container.find(elm + ':first').before(container.find(elm + ':last'));
+                resetSlides();
+            });
+        }
+        
+        if (e.target.id == next) {
+            container.stop().animate({
+                'left': item_width * -2
+            }, 1500, function () {
+                container.find(elm + ':last').after(container.find(elm + ':first'));
+                resetSlides();
+            });
+        }
+        
+        // cancela el comportamiento por defecto del enlace
+        return false;
+        
+    });
+    
+    // Si el ratón está sobre el contenedor, pausa la rotación automática
+    container.parent().mouseenter(function () {
+        clearInterval(run);
+    }).mouseleave(function () {
+        run = setInterval(rotate, speed);
+    });
+    
+    // Ajuste de los slides al salir de la animación
+    function resetSlides() {
+        container.css({
+            'left': -1 * item_width
+        });
+    }
 });
 
-tLeftButton.click(function() {
-  if (tPosition > 0) {
-    tPosition--;
-    var m = "-" + (100 * tPosition) + "vw";
-    $(".testimonials ul").animate({
-      "left": m
-    }, 500);
-    greyButton();
-  }
-});
-
-// Grey out buttons if not useable 
-
-var greyButton = function() {
-  if (tPosition == 0) {
-    tLeftButton.css("opacity", "0.3");
-    tLeftButton.css("cursor", "default");
-  } else if (tPosition == (tItemCount - 1)) {
-    tRightButton.css("opacity", "0.3");
-    tRightButton.css("cursor", "default");
-  } else {
-    tRightButton.css("opacity", "1");
-    tRightButton.css("cursor", "pointer");
-    tLeftButton.css("opacity", "1");
-    tLeftButton.css("cursor", "pointer");
-  }
-}
-
-greyButton();
-
-// And finally, if there's only one quote, kill the buttons altogether
-
-if ( tItemCount == 1 ) {
-  $('.testimonials-control').css('display','none');
+// función simple para hacer clic en el enlace "siguiente"
+// un temporizador llamará a esta función, y la rotación comenzará
+function rotate() {
+    $('#next').click();
 }
